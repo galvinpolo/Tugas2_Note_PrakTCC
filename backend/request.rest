@@ -1,0 +1,25 @@
+GET http://localhost:5000/note
+
+###
+
+POST http://localhost:5000/add-note
+Content-Type: application/json
+
+{
+"title": "tugas hari ini",
+"note": "praktikum cc"
+}
+
+###
+
+PUT http://localhost:5000/update-note/10
+Content-Type: application/json
+
+{
+"title": "oke",
+"note": "bisaaaa"
+}
+
+###
+
+DELETE http://localhost:5000/delete-note/10

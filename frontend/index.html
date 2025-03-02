@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notepad App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Notepad App</h2>
+        
+        <!-- Form Tambah/Edit Catatan -->
+        <div class="mb-4">
+            <input type="text" id="title" class="form-control mb-2" placeholder="Judul Catatan">
+            <textarea id="note" class="form-control mb-2" placeholder="Isi Catatan"></textarea>
+            <button id="add-btn" class="btn btn-primary" onclick="addNote()">Tambah Catatan</button>
+            <button id="update-btn" class="btn btn-success d-none" onclick="updateNote()">Update Catatan</button>
+            <button id="cancel-btn" class="btn btn-secondary d-none" onclick="cancelEdit()">Batal</button>
+        </div>
+        
+        <!-- Tabel Daftar Catatan -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Judul</th>
+                    <th>Isi</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="notes-table"></tbody>
+        </table>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000';
+
+        async function fetchNotes() {
+            try {
+                const response = await fetch(`${API_URL}/note`);
+                if (!response.ok) throw new Error('Gagal mengambil data');
+                const notes = await response.json();
+                const notesTable = document.getElementById('notes-table');
+                notesTable.innerHTML = '';
+                notes.forEach(note => {
+                    notesTable.innerHTML += `
+                        <tr>
+                            <td>${note.id}</td>
+                            <td>${note.title}</td>
+                            <td>${note.note}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" onclick="editNote(${note.id}, '${note.title}', '${note.note}')">Edit</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteNote(${note.id})">Hapus</button>
+                            </td>
+                        </tr>`;
+                });
+            } catch (error) {
+                console.error("Gagal mengambil data:", error);
+            }
+        }
+
+        async function addNote() {
+            const title = document.getElementById('title').value;
+            const note = document.getElementById('note').value;
+            await fetch(`${API_URL}/add-note`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, note })
+            });
+            resetForm();
+            fetchNotes();
+        }
+
+        function editNote(id, title, note) {
+            document.getElementById('title').value = title;
+            document.getElementById('note').value = note;
+            document.getElementById('title').setAttribute('data-id', id);
+            document.getElementById('add-btn').classList.add('d-none');
+            document.getElementById('update-btn').classList.remove('d-none');
+            document.getElementById('cancel-btn').classList.remove('d-none');
+        }
+
+        async function updateNote() {
+            const id = document.getElementById('title').getAttribute('data-id');
+            const title = document.getElementById('title').value;
+            const note = document.getElementById('note').value;
+            if (!id) return;
+            await fetch(`${API_URL}/update-note/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, note })
+            });
+            resetForm();
+            fetchNotes();
+        }
+
+        function cancelEdit() {
+            resetForm();
+        }
+
+        function resetForm() {
+            document.getElementById('title').value = '';
+            document.getElementById('note').value = '';
+            document.getElementById('title').removeAttribute('data-id');
+            document.getElementById('add-btn').classList.remove('d-none');
+            document.getElementById('update-btn').classList.add('d-none');
+            document.getElementById('cancel-btn').classList.add('d-none');
+        }
+
+        async function deleteNote(id) {
+            await fetch(`${API_URL}/delete-note/${id}`, { method: 'DELETE' });
+            fetchNotes();
+        }
+
+        fetchNotes();
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,20 +1,16 @@
-import { Sequelize } from "sequelize";
+import { Sequelize } from "sequelize"
+import dotenv from "dotenv";
 
-const db = new Sequelize("notes", "root", "", {
-  host: "34.56.13.236",
-  dialect: "mysql",
-});
+dotenv.config();
 
-const testConnection = async () => {
-  try {
-    await db.authenticate();
-    console.log("Database terhubung!");
-  } catch (error) {
-    console.error("Gagal terhubung ke database:", error.message);
-    throw error;
+const db = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USERNAME,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: "mysql",
   }
-};
-
-testConnection();
+);
 
 export default db;

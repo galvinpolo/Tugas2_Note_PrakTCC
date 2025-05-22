@@ -22,4 +22,25 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:5000/delete-note/10
+DELETE http://localhost:5000/delete-note/12
+
+###
+GET http://localhost:5000/users
+
+###
+POST http://localhost:5000/create-users
+Content-Type: application/json
+
+{
+"username": "galvin2",
+"password": "1234"
+}
+
+###
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{   
+"username": "galvin2",
+"password": "1234"
+}

@@ -25,6 +25,8 @@ steps:
         "--region",
         "us-central1",
         "--allow-unauthenticated",
+        "--set-env-vars",
+        "DB_NAME=db_notes,DB_USERNAME=root,DB_PASSWORD=galvin03,DB_HOST=34.173.4.204,ACCESS_TOKEN_SECRET=galvinmengtcc,REFRESH_TOKEN_SECRET=tccgokil"
       ]
 
 # Log tidak akan disimpan di Google Cloud Storage (butuh hak akses).

@@ -26,7 +26,7 @@ steps:
         "us-central1",
         "--allow-unauthenticated",
         "--set-env-vars",
-        "--set-env-vars=DB_NAME=$_DB_NAME,DB_USERNAME=$_DB_USERNAME,DB_PASSWORD=$_DB_PASSWORD,DB_HOST=$_DB_HOST,ACCESS_TOKEN_SECRET=$_ACCESS_TOKEN_SECRET,REFRESH_TOKEN_SECRET=$_REFRESH_TOKEN_SECRET"
+        "DB_NAME=$_DB_NAME,DB_USERNAME=$_DB_USERNAME,DB_PASSWORD=$_DB_PASSWORD,DB_HOST=$_DB_HOST,ACCESS_TOKEN_SECRET=$_ACCESS_TOKEN_SECRET,REFRESH_TOKEN_SECRET=$_REFRESH_TOKEN_SECRET"
       ]
 
 # Log tidak akan disimpan di Google Cloud Storage (butuh hak akses).

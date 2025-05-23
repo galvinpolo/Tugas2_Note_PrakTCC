@@ -14,7 +14,7 @@ const __dirname = path.dirname(__filename);
 // Middleware
 app.use(
   cors({
-    origin: "*",
+    origin: "https://fe-125-dot-b-11-451118.de.r.appspot.com",
     credentials: true,
   })
 );

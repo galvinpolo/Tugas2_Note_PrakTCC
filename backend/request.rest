@@ -1,4 +1,4 @@
-GET http://localhost:5000/note
+GET POST https://notes-be-galpin-525497441996.us-central1.run.app/note
 
 ###
 

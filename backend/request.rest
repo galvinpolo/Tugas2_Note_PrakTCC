@@ -2,7 +2,7 @@ GET http://localhost:5000/note
 
 ###
 
-POST http://localhost:5000/add-note
+POST https://notes-be-galpin-525497441996.us-central1.run.app/add-note
 Content-Type: application/json
 
 {

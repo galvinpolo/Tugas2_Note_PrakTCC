@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, "../frontend")));
 
 // Default route
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend", "index.html"));
+  res.sendFile(path.join(__dirname, "../frontend", "login.html"));
 });
 
 app.listen(PORT, () => {

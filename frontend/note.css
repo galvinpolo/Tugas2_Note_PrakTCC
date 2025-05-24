@@ -1,0 +1,90 @@
+body {
+    background: #f3eaff;
+    min-height: 100vh;
+}
+.main-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 40px 32px 32px 32px;
+}
+.notepad-title {
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: #7c3aed;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+.btn-login {
+    background: #bdbdbd !important;
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+}
+.btn-login:hover {
+    background: #9e9e9e !important;
+    color: #fff !important;
+}
+.logout-btn {
+    background: #a084ee;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+.logout-btn:hover {
+    background: #7c3aed;
+    color: #fff;
+}
+.note-form input, .note-form textarea {
+    background: #f3eaff;
+    border: none;
+    border-radius: 12px;
+}
+.note-form input:focus, .note-form textarea:focus {
+    box-shadow: 0 0 0 2px #a084ee33;
+    border: none;
+}
+.note-form button {
+    min-width: 120px;
+}
+.table thead {
+    background: linear-gradient(90deg, #a084ee 0%, #f3eaff 100%);
+    color: #7c3aed;
+}
+.table tbody tr {
+    vertical-align: middle;
+}
+.btn-action {
+    border-radius: 8px;
+    font-weight: 500;
+}
+.btn-action.btn-warning {
+    background: #ffe484;
+    color: #7c3aed;
+    border: none;
+}
+.btn-action.btn-warning:hover {
+    background: #f3eaff;
+    color: #7c3aed;
+}
+.btn-action.btn-danger {
+    background: #ffb4b4;
+    color: #fff;
+    border: none;
+}
+.btn-action.btn-danger:hover {
+    background: #ff6b6b;
+    color: #fff;
+}
+@media (max-width: 768px) {
+    .main-container {
+        padding: 18px 4vw;
+    }
+    .notepad-title {
+        font-size: 1.5rem;
+    }
+}

@@ -1,63 +1,96 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Register</title>
-  <link rel="stylesheet" href="login.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="login-outer">
+      <div
+        class="login-container d-flex flex-column align-items-center justify-content-center py-5"
+      >
+        <h2 class="login-title mb-4">Register</h2>
+        <input
+          type="text"
+          id="register-username"
+          class="form-control mb-3"
+          placeholder="Username"
+          style="max-width: 350px"
+        />
+        <input
+          type="password"
+          id="register-password"
+          class="form-control mb-3"
+          placeholder="Password"
+          style="max-width: 350px"
+        />
+        <input
+          type="password"
+          id="register-confirm"
+          class="form-control mb-3"
+          placeholder="Konfirmasi Password"
+          style="max-width: 350px"
+        />
+        <button
+          class="btn btn-login w-100 mb-3"
+          style="max-width: 350px"
+          onclick="register()"
+        >
+          Register
+        </button>
+        <div class="mb-2">
+          Sudah punya akun? <a href="login.html" class="register-link">Login</a>
+        </div>
+        <div id="register-error" class="error-message"></div>
+      </div>
+    </div>
 
-  <div class="login-container">
-    <h2>Register</h2>
-    <input type="text" id="register-username" placeholder="Username" />
-    <input type="password" id="register-password" placeholder="Password" />
-    <input type="password" id="register-confirm" placeholder="Konfirmasi Password" />
-    <button onclick="register()">Register</button>
-    <div id="register-error" class="error-message"></div>
-  </div>
+    <script>
+      const API_URL =
+        "https://notes-be-galpin-525497441996.us-central1.run.app";
 
-  <!-- JavaScript -->
-  <script>
-    const API_URL = 'https://notes-be-galpin-525497441996.us-central1.run.app';
+      async function register() {
+        const username = document
+          .getElementById("register-username")
+          .value.trim();
+        const password = document.getElementById("register-password").value;
+        const confirm = document.getElementById("register-confirm").value;
+        const errorDiv = document.getElementById("register-error");
+        errorDiv.textContent = "";
 
-    async function register() {
-      const username = document.getElementById("register-username").value.trim();
-      const password = document.getElementById("register-password").value;
-      const confirm = document.getElementById("register-confirm").value;
-      const errorDiv = document.getElementById("register-error");
-      errorDiv.textContent = "";
-
-      if (!username || !password || !confirm) {
-        errorDiv.textContent = "Semua field harus diisi!";
-        return;
-      }
-
-      if (password !== confirm) {
-        errorDiv.textContent = "Password dan konfirmasi tidak sama!";
-        return;
-      }
-
-      console.log("Data yang dikirim:", { username, password });
-
-      try {
-        const res = await fetch(`${API_URL}/create-users`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password }),
-        });
-        if (!res.ok) {
-          const errData = await res.json();
-          throw new Error(errData.message || "Registrasi gagal");
+        if (!username || !password || !confirm) {
+          errorDiv.textContent = "Semua field harus diisi!";
+          return;
         }
-        alert("Registrasi berhasil! Silakan login.");
-        window.location.href = "login.html";
-      } catch (err) {
-        errorDiv.textContent = err.message || "Registrasi gagal";
+
+        if (password !== confirm) {
+          errorDiv.textContent = "Password dan konfirmasi tidak sama!";
+          return;
+        }
+
+        try {
+          const res = await fetch(`${API_URL}/create-users`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+          });
+          if (!res.ok) {
+            const errData = await res.json();
+            throw new Error(errData.message || "Registrasi gagal");
+          }
+          alert("Registrasi berhasil! Silakan login.");
+          window.location.href = "login.html";
+        } catch (err) {
+          errorDiv.textContent = err.message || "Registrasi gagal";
+        }
       }
-    }
-
-  </script>
-
-</body>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
